@@ -1,0 +1,15 @@
+/Users/r34p3r/MAKERS/LOTR_assesment/bin/Debug/net5.0/LOTR_assesment.deps.json
+/Users/r34p3r/MAKERS/LOTR_assesment/bin/Debug/net5.0/LOTR_assesment.runtimeconfig.json
+/Users/r34p3r/MAKERS/LOTR_assesment/bin/Debug/net5.0/LOTR_assesment.runtimeconfig.dev.json
+/Users/r34p3r/MAKERS/LOTR_assesment/bin/Debug/net5.0/LOTR_assesment.dll
+/Users/r34p3r/MAKERS/LOTR_assesment/bin/Debug/net5.0/ref/LOTR_assesment.dll
+/Users/r34p3r/MAKERS/LOTR_assesment/bin/Debug/net5.0/LOTR_assesment.pdb
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.csprojAssemblyReference.cache
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.GeneratedMSBuildEditorConfig.editorconfig
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.AssemblyInfoInputs.cache
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.AssemblyInfo.cs
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.csproj.CoreCompileInputs.cache
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.dll
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/ref/LOTR_assesment.dll
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.pdb
+/Users/r34p3r/MAKERS/LOTR_assesment/obj/Debug/net5.0/LOTR_assesment.genruntimeconfig.cache
