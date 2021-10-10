@@ -10,21 +10,43 @@ namespace HttpClientStatus
         {
             using var client = new HttpClient();
 
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book/");
-            request.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
-            var response = await client.SendAsync(request);
-            string responseBody = await response.Content.ReadAsStringAsync();
-            
+            var requestBook = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book/");
+            requestBook.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
+            var responseBook = await client.SendAsync(requestBook);
+            string responseBodyBook = await responseBook.Content.ReadAsStringAsync();
 
-            /*Console.WriteLine(responseBody);*/
-            Console.WriteLine("What is your name?");
-            var name = Console.ReadLine();
-            var currentDate = DateTime.Now;
-            Console.WriteLine($"{Environment.NewLine}Hello, {name}, what would you like to check out?");
-            Console.Write($"{Environment.NewLine}You can search for books by typing 'book' or for chapters by typing 'chapter' or press 'ESC' to quit.");
-            Console.ReadKey(true);
+            var requestChapter = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book{name}/");
+            requestChapter.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
+            var responseChapter = await client.SendAsync(requestChapter);
+            string responseBodyChapter = await responseChapter.Content.ReadAsStringAsync();
 
-            
+            Console.WriteLine("Hi, What is your name?");
+            var inputName = Console.ReadLine();
+            Console.WriteLine($"{Environment.NewLine}Hi, {inputName}, what would you like to check out?");
+
+
+            bool quitFlag = false;
+            while (!quitFlag)
+            {
+                Console.WriteLine($"{Environment.NewLine}Please use the following commands for your enquiries.");
+                Console.WriteLine($"{Environment.NewLine} - You can search for books by typing 'book'");
+                Console.WriteLine($"{Environment.NewLine} - You can search for chapters by typing 'chapter'");
+                Console.WriteLine($"{Environment.NewLine} - Or type 'q' to quit.");
+                string userChoice = Console.ReadLine();
+
+                if (userChoice == "q")
+                {
+                    quitFlag = true;
+                }
+                else if (userChoice == "book")
+                {
+                    Console.WriteLine(responseBodyBook);
+                }
+                else if (userChoice == "chapter")
+                {
+                    Console.WriteLine(responseBodyChapter);
+                }
+            }
         }
     }
 }
