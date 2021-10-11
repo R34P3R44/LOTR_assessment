@@ -27,5 +27,6 @@ Click on "Run" with with .Net Core Launch(console)
 LOTR_assesment/bin/Debug/net5.0
 ```
 5. Run the below command:
+```
 dotnet LOTR_assesment.dll
 ```
