@@ -15,10 +15,13 @@ namespace HttpClientStatus
             var responseBook = await client.SendAsync(requestBook);
             string responseBodyBook = await responseBook.Content.ReadAsStringAsync();
 
-            var requestChapter = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book{name}/");
+            var requestChapter = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/chapter/");
             requestChapter.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
             var responseChapter = await client.SendAsync(requestChapter);
             string responseBodyChapter = await responseChapter.Content.ReadAsStringAsync();
+
+
+
 
             Console.WriteLine("Hi, What is your name?");
             var inputName = Console.ReadLine();
@@ -29,8 +32,9 @@ namespace HttpClientStatus
             while (!quitFlag)
             {
                 Console.WriteLine($"{Environment.NewLine}Please use the following commands for your enquiries.");
-                Console.WriteLine($"{Environment.NewLine} - You can search for books by typing 'book'");
-                Console.WriteLine($"{Environment.NewLine} - You can search for chapters by typing 'chapter'");
+                Console.WriteLine($"{Environment.NewLine} - To list all books type 'book'");
+                Console.WriteLine($"{Environment.NewLine} - To search for a specific book type 'book id'");
+                Console.WriteLine($"{Environment.NewLine} - To list all chapters in a book type 'chapter name'");
                 Console.WriteLine($"{Environment.NewLine} - Or type 'q' to quit.");
                 string userChoice = Console.ReadLine();
 
