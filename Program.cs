@@ -1,7 +1,34 @@
-﻿using System.Net.Http;
+﻿
+// The below will enable HTTPClient
+using System.Net.Http;
+//Using Newtonsoft.Json to convert json to C# objects.
 using Newtonsoft.Json.Linq;
 
-
+//async method which will get all books
+public static async void GetBook()
+{
+    //Define base Url
+    string baseUrl = "https://the-one-api.dev/v2/book/";
+    //try and catch block will will catch any exeptions
+    try
+    {
+        //Defining a Http client
+        using (HttpClient client = new HttpClient())
+        {
+            //Initiating the Get Request with await keyword so the using statement will be executed in order.
+            //Httprespinsemessage contains status code and data from response.
+            using (HttpResponseMessage res = await client.GetAsync(baseUrl))
+            {
+                //Getting content from response and convert it to a C# object
+                
+            }
+        }
+    } catch(Exception exception)
+    {
+        Console.WriteLine("Exception Hit----------");
+        Console.WriteLine(exception);
+    }
+}
 
 
 
