@@ -17,7 +17,7 @@ git clone <https://github.com/R34P3R44/LOTR_assesment>
 ```
 2. Open project in code editor of your choice and go to the below folder
 ```
-Go to "Run anf Debug tab and press "Run" with with .Net Core Launch(console)
+Go to "Run and Debug tab and press "Run" with with .Net Core Launch(console)
 ```
 3. Ope your terminal and go to the below folder:
 ```
