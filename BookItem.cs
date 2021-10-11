@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LOTRapp
+namespace LOTRApp
 {
     //LOTRItem model with Name and Url.
     public class LotrItem
