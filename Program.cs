@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -15,11 +15,27 @@ namespace HttpClientStatus
             var responseBook = await client.SendAsync(requestBook);
             string responseBodyBook = await responseBook.Content.ReadAsStringAsync();
 
-            var requestChapter = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/chapter/");
-            requestChapter.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
-            var responseChapter = await client.SendAsync(requestChapter);
-            string responseBodyChapter = await responseChapter.Content.ReadAsStringAsync();
+            var requestSpecBookChapter = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book/{id}/chapter");
+            requestSpecBookChapter.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
+            var responseSpecBookChapter = await client.SendAsync(requestSpecBookChapter);
+            string responseBodySpecBookChapter = await responseSpecBookChapter.Content.ReadAsStringAsync();
 
+            static void GetBookValues()
+{
+                string json = new HttpClient().DownloadString("https://the-one-api.dev/v2/book/");
+
+                List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
+
+                foreach (var item in items)
+                {
+                    Console.WriteLine("ID: " + item.id.ToUpper());
+                    Console.WriteLine("Name: " + item.name.ToUpper());
+                    Console.WriteLine("ChapterName: " + item.symbol.ToUpper());
+                    Console.WriteLine("Book: " + item.rank.ToUpper());
+                    //Console.WriteLine("Price (USD): " + item.price_usd.ToUpper());
+                    Console.WriteLine("\n");
+                }
+        }
 
 
 
@@ -48,9 +64,11 @@ namespace HttpClientStatus
                 }
                 else if (userChoice == "chapter")
                 {
-                    Console.WriteLine(responseBodyChapter);
+                    Console.WriteLine(responseBodySpecBookChapter);
                 }
             }
         }
     }
-}
+}*/
+
+
