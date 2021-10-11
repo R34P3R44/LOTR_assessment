@@ -1,32 +1,110 @@
 ﻿
+using System;
+using System.Collections.Generic;
 // The below will enable HTTPClient
 using System.Net.Http;
 //Using Newtonsoft.Json to convert json to C# objects.
 using Newtonsoft.Json.Linq;
 
-//async method which will get all books
-public static async void GetBook()
+namespace LOTRApp
 {
-    //Define base Url
-    string baseUrl = "https://the-one-api.dev/v2/book/";
-    //try and catch block will will catch any exeptions
-    try
+    class Program
     {
-        //Defining a Http client
-        using (HttpClient client = new HttpClient())
+        static void Main(string[] args)
         {
-            //Initiating the Get Request with await keyword so the using statement will be executed in order.
-            //Httprespinsemessage contains status code and data from response.
-            using (HttpResponseMessage res = await client.GetAsync(baseUrl))
+            Console.WriteLine("Hello World!");
+            GetBook();
+            GetOneBook(1);
+            Console.ReadLine();
+            Console.ReadKey();
+        }
+
+
+
+//async method which will get all books
+        public static async void GetBook()
+        {
+            //Define base Url
+            string baseUrl = "https://the-one-api.dev/v2/book/";
+            //try and catch block will will catch any exeptions
+            try
             {
-                //Getting content from response and convert it to a C# object
-                
+                //Defining a Http client
+                using (HttpClient client = new HttpClient())
+                {
+                    //Initiating the Get Request with await keyword so the using statement will be executed in order.
+                    //Httprespinsemessage contains status code and data from response.
+                    using (HttpResponseMessage res = await client.GetAsync(baseUrl))
+                    {
+                        //Getting content from response and convert it to a C# object
+                        using (HttpContent content = res.Content)
+                        {
+                            //Assigning the content to data variable by converting it to string with await keyword.
+                            var data = await content.ReadAsStringAsync();
+
+                            //Adding if statement to check data isnt null then return log convert whihc was convreted by newtonsoft.
+                            if (data != null)
+                            {
+                                //Logging data to console
+                                Console.WriteLine("data-----------{0}", data, JObject.Parse(data)["results"]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("NO Content---------");
+                            }
+                        }
+                    }
+                }
+            } catch(Exception exception)
+            {
+                Console.WriteLine("Exception Hit----------");
+                Console.WriteLine(exception);
             }
         }
-    } catch(Exception exception)
-    {
-        Console.WriteLine("Exception Hit----------");
-        Console.WriteLine(exception);
+
+
+        public static async void GetOneBook(int id)
+        {
+            //Define your base url
+            string baseURL = $"https://the-one-api.dev/v2/book/{id}/";
+            //Have your api call in try/catch block.
+            try { 
+                //Now we will have our using directives which would have a HttpClient 
+                using (HttpClient client = new HttpClient())
+                {
+                    //Now get your response from the client from get request to baseurl.
+                    //Use the await keyword since the get request is asynchronous, and want it run before next asychronous operation.
+                    using (HttpResponseMessage res = await client.GetAsync(baseURL))
+                    {
+                        //Now we will retrieve content from our response, which would be HttpContent, retrieve from the response Content property.
+                        using (HttpContent content = res.Content)
+                        {
+                            //Retrieve the data from the content of the response, have the await keyword since it is asynchronous.
+                            string data = await content.ReadAsStringAsync();
+                            //If the data is not null, parse the data to a C# object, then create a new instance of PokeItem.
+                            if (data != null)
+                            {
+                                //Parse your data into a object.
+                                var dataObj = JObject.Parse(data);
+                                //Then create a new instance of PokeItem, and string interpolate your name property to your JSON object.
+                                //Which will convert it to a string, since each property value is a instance of JToken.
+                                LotrItem lotrItem = new LotrItem(name: $"{dataObj["name"]}");
+                                //Log your pokeItem's name to the Console.
+                                Console.WriteLine("Pokemon Name: {0}", lotrItem.Name);
+                            }
+                            else
+                            {
+                                //If data is null log it into console.
+                                Console.WriteLine("Data is null!");
+                            }
+                        }
+                    }
+                }
+                //Catch any exceptions and log it into the console.
+            } catch(Exception exception) {
+                Console.WriteLine(exception);
+            }
+        }
     }
 }
 

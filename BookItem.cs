@@ -7,11 +7,11 @@ using System.Text;
 namespace LOTRapp
 {
     //LOTRItem model with Name and Url.
-    public class LOTRItem
+    public class LotrItem
     {
         //Defined a constructor method of LOTRItem with same name as class.
         //This will only take a string name and url as argument.
-        public LOTRItem(string name, string url)
+        public LotrItem(string name, string url)
         {
             Name = name;
         }
