@@ -11,13 +11,11 @@ namespace LOTRApp
     class Program
     {
         static void Main(string[] args)
-
         
         {
             Console.WriteLine("Hi, What is your name?");
             var inputName = Console.ReadLine();
             Console.WriteLine($"{Environment.NewLine}Hi, {inputName}, what would you like to check out?");
-
 
             bool quitFlag = false;
 
@@ -29,7 +27,6 @@ namespace LOTRApp
 
             while (!quitFlag)
             {
-                
                 string userChoice = Console.ReadLine();
 
                 if (userChoice == "q")
@@ -39,7 +36,7 @@ namespace LOTRApp
                 }
                 else if (userChoice == "books")
                 {
-                    GetBook();
+                    GetBooks();
                 }
                 else if (userChoice == "book")
                 {
@@ -55,11 +52,8 @@ namespace LOTRApp
                 }
             }
         }
-
-
-
         //async method which will get all books
-        public static async void GetBook()
+        public static async void GetBooks()
         {
             //Define base Url
             string baseUrl = "https://the-one-api.dev/v2/book/";
@@ -101,48 +95,31 @@ namespace LOTRApp
                 Console.WriteLine(exception);
             }
         }
-
-
         public static async void GetOneBook(string id)
         {
-            //Define your base url
             string baseURL = $"https://the-one-api.dev/v2/book/{id}/";
-            //Have your api call in try/catch block.
             try { 
-                //Now we will have our using directives which would have a HttpClient 
                 using (HttpClient client = new HttpClient())
                 {
-                    //Now get your response from the client from get request to baseurl.
-                    //Use the await keyword since the get request is asynchronous, and want it run before next asychronous operation.
                     using (HttpResponseMessage res = await client.GetAsync(baseURL))
                     {
                         res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
-                        //Now we will retrieve content from our response, which would be HttpContent, retrieve from the response Content property.
                         using (HttpContent content = res.Content)
                         {
-                            //Retrieve the data from the content of the response, have the await keyword since it is asynchronous.
                             string data = await content.ReadAsStringAsync();
-                            //If the data is not null, parse the data to a C# object, then create a new instance of PokeItem.
                             if (data != null)
                             {
-                                //Parse your data into a object.
                                 var dataObj = JObject.Parse(data);
-                                //Then create a new instance of PokeItem, and string interpolate your name property to your JSON object.
-                                //Which will convert it to a string, since each property value is a instance of JToken.
-                                //LotrItem lotrItem = new LotrItem(name: $"{dataObj["name"]}", url: $"{dataObj["url"]}");
-                                //Log your pokeItem's name to the Console.
                                 Console.WriteLine(dataObj["docs"]);
                                 Console.WriteLine("Type 'book', 'books', 'chapter' or press 'q' if you want to quit");
                             }
                             else
                             {
-                                //If data is null log it into console.
                                 Console.WriteLine("Data is null!");
                             }
                         }
                     }
                 }
-                //Catch any exceptions and log it into the console.
             } catch(Exception exception) {
                 Console.WriteLine(exception);
             }
