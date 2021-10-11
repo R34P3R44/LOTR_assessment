@@ -15,14 +15,17 @@ Im using the https://the-one-api.dev/v2 API with bearer token.
 ```
 git clone <https://github.com/R34P3R44/LOTR_assesment>
 ```
-2. Open project in code editor of your choice and go to the below folder
+2. Open project in code editor of your choice.
 ```
-Go to "Run and Debug tab and press "Run" with with .Net Core Launch(console)
 ```
-3. Ope your terminal and go to the below folder:
+3. Go to "Run and Debug tab
+```
+Click on "Run" with with .Net Core Launch(console)
+```
+4. Open your terminal and go to the below folder:
 ```
 LOTR_assesment/bin/Debug/net5.0
 ```
-4. Run the below command:
+5. Run the below command:
 dotnet LOTR_assesment.dll
 ```
