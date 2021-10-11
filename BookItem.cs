@@ -1,6 +1,6 @@
 //BookItem.cs will be used for an API call to retriev one book
 
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,8 +14,10 @@ namespace LOTRApp
         public LotrItem(string name, string url)
         {
             Name = name;
+            Url = url;
         }
         //Implemented properties.
         public string Name { get; set; }
+        public string Url { get; set; }
     }
-}
+}*/

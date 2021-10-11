@@ -11,17 +11,54 @@ namespace LOTRApp
     class Program
     {
         static void Main(string[] args)
+
+        
         {
-            Console.WriteLine("Hello World!");
-            GetBook();
-            GetOneBook(1);
-            Console.ReadLine();
-            Console.ReadKey();
+            Console.WriteLine("Hi, What is your name?");
+            var inputName = Console.ReadLine();
+            Console.WriteLine($"{Environment.NewLine}Hi, {inputName}, what would you like to check out?");
+
+
+            bool quitFlag = false;
+
+            Console.WriteLine($"{Environment.NewLine}Please use the following commands for your enquiries.");
+            Console.WriteLine($"{Environment.NewLine} - To list all books, type 'books'");
+            Console.WriteLine($"{Environment.NewLine} - To search for a specific book, type book and then the 'id number' of the book");
+            Console.WriteLine($"{Environment.NewLine} - To list all chapters in a book, type the 'chapters' and then the 'id number' of the book");
+            Console.WriteLine($"{Environment.NewLine} - Or type 'q' to quit.");
+
+            while (!quitFlag)
+            {
+                
+                string userChoice = Console.ReadLine();
+
+                if (userChoice == "q")
+                {
+                    Console.WriteLine("Good Bye");
+                    quitFlag = true;
+                }
+                else if (userChoice == "books")
+                {
+                    GetBook();
+                }
+                else if (userChoice == "book")
+                {
+                    Console.WriteLine($"{Environment.NewLine} - Please enter book id");
+                    string bookid = Console.ReadLine();
+                    GetOneBook(bookid);
+                }
+                else if (userChoice == "chapter")
+                {
+                    Console.WriteLine($"{Environment.NewLine} - Please enter book id");
+                    string bookid = Console.ReadLine();
+                    GetBookChapters(bookid);
+                }
+            }
         }
 
 
 
-//async method which will get all books
+        //async method which will get all books
         public static async void GetBook()
         {
             //Define base Url
@@ -36,6 +73,7 @@ namespace LOTRApp
                     //Httprespinsemessage contains status code and data from response.
                     using (HttpResponseMessage res = await client.GetAsync(baseUrl))
                     {
+                        res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
                         //Getting content from response and convert it to a C# object
                         using (HttpContent content = res.Content)
                         {
@@ -45,8 +83,10 @@ namespace LOTRApp
                             //Adding if statement to check data isnt null then return log convert whihc was convreted by newtonsoft.
                             if (data != null)
                             {
+                                var dataObj = JObject.Parse(data);
                                 //Logging data to console
-                                Console.WriteLine("data-----------{0}", data, JObject.Parse(data)["results"]);
+                                Console.WriteLine(dataObj["docs"]);
+                                Console.WriteLine("Type 'book', 'books', 'chapter' or press 'q' if you want to quit");
                             }
                             else
                             {
@@ -63,7 +103,7 @@ namespace LOTRApp
         }
 
 
-        public static async void GetOneBook(int id)
+        public static async void GetOneBook(string id)
         {
             //Define your base url
             string baseURL = $"https://the-one-api.dev/v2/book/{id}/";
@@ -76,6 +116,7 @@ namespace LOTRApp
                     //Use the await keyword since the get request is asynchronous, and want it run before next asychronous operation.
                     using (HttpResponseMessage res = await client.GetAsync(baseURL))
                     {
+                        res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
                         //Now we will retrieve content from our response, which would be HttpContent, retrieve from the response Content property.
                         using (HttpContent content = res.Content)
                         {
@@ -88,9 +129,10 @@ namespace LOTRApp
                                 var dataObj = JObject.Parse(data);
                                 //Then create a new instance of PokeItem, and string interpolate your name property to your JSON object.
                                 //Which will convert it to a string, since each property value is a instance of JToken.
-                                LotrItem lotrItem = new LotrItem(name: $"{dataObj["name"]}");
+                                //LotrItem lotrItem = new LotrItem(name: $"{dataObj["name"]}", url: $"{dataObj["url"]}");
                                 //Log your pokeItem's name to the Console.
-                                Console.WriteLine("Pokemon Name: {0}", lotrItem.Name);
+                                Console.WriteLine(dataObj["docs"]);
+                                Console.WriteLine("Type 'book', 'books', 'chapter' or press 'q' if you want to quit");
                             }
                             else
                             {
@@ -105,86 +147,38 @@ namespace LOTRApp
                 Console.WriteLine(exception);
             }
         }
-    }
-}
-
-
-
-
-
-
-
-/*using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace HttpClientStatus
-{
-    class Program
-    {
-        static async Task Main(string[] args)
+        public static async void GetBookChapters(string id)
         {
-            using var client = new HttpClient();
 
-            var requestBook = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book/");
-            requestBook.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
-            var responseBook = await client.SendAsync(requestBook);
-            string responseBodyBook = await responseBook.Content.ReadAsStringAsync();
+            string baseURL = $"https://the-one-api.dev/v2/book/{id}/chapter";
 
-            var requestSpecBookChapter = new HttpRequestMessage(HttpMethod.Get, "https://the-one-api.dev/v2/book/{id}/chapter");
-            requestSpecBookChapter.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
-            var responseSpecBookChapter = await client.SendAsync(requestSpecBookChapter);
-            string responseBodySpecBookChapter = await responseSpecBookChapter.Content.ReadAsStringAsync();
+            try { 
 
-            static void GetBookValues()
-{
-                string json = new HttpClient().DownloadString("https://the-one-api.dev/v2/book/");
-
-                List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
-
-                foreach (var item in items)
+                using (HttpClient client = new HttpClient())
                 {
-                    Console.WriteLine("ID: " + item.id.ToUpper());
-                    Console.WriteLine("Name: " + item.name.ToUpper());
-                    Console.WriteLine("ChapterName: " + item.symbol.ToUpper());
-                    Console.WriteLine("Book: " + item.rank.ToUpper());
-                    //Console.WriteLine("Price (USD): " + item.price_usd.ToUpper());
-                    Console.WriteLine("\n");
+                    using (HttpResponseMessage res = await client.GetAsync(baseURL))
+                    {
+                        res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
+                        using (HttpContent content = res.Content)
+                        {
+                            string data = await content.ReadAsStringAsync();
+
+                             if (data != null)
+                            {
+                                var dataObj = JObject.Parse(data);
+                                Console.WriteLine(dataObj["docs"]);
+                                Console.WriteLine("Type 'book', 'books', 'chapter' or press 'q' if you want to quit");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Data is null!");
+                            }
+                        }
+                    }
                 }
-        }
-
-
-
-            Console.WriteLine("Hi, What is your name?");
-            var inputName = Console.ReadLine();
-            Console.WriteLine($"{Environment.NewLine}Hi, {inputName}, what would you like to check out?");
-
-
-            bool quitFlag = false;
-            while (!quitFlag)
-            {
-                Console.WriteLine($"{Environment.NewLine}Please use the following commands for your enquiries.");
-                Console.WriteLine($"{Environment.NewLine} - To list all books type 'book'");
-                Console.WriteLine($"{Environment.NewLine} - To search for a specific book type 'book id'");
-                Console.WriteLine($"{Environment.NewLine} - To list all chapters in a book type 'chapter name'");
-                Console.WriteLine($"{Environment.NewLine} - Or type 'q' to quit.");
-                string userChoice = Console.ReadLine();
-
-                if (userChoice == "q")
-                {
-                    quitFlag = true;
-                }
-                else if (userChoice == "book")
-                {
-                    Console.WriteLine(responseBodyBook);
-                }
-                else if (userChoice == "chapter")
-                {
-                    Console.WriteLine(responseBodySpecBookChapter);
-                }
+            } catch(Exception exception) {
+                Console.WriteLine(exception);
             }
         }
     }
-}*/
-
-
+}
