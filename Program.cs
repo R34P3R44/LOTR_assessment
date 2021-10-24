@@ -23,6 +23,7 @@ namespace LOTRApp
             Console.WriteLine($"{Environment.NewLine} - To list all books, type 'books'");
             Console.WriteLine($"{Environment.NewLine} - To search for a specific book, type book and then the 'id number' of the book");
             Console.WriteLine($"{Environment.NewLine} - To list all chapters in a book, type the 'chapters' and then the 'id number' of the book");
+            Console.WriteLine($"{Environment.NewLine} - To list all movies, type 'movies'");
             Console.WriteLine($"{Environment.NewLine} - Or type 'q' to quit.");
 
             while (!quitFlag)
@@ -50,6 +51,10 @@ namespace LOTRApp
                     string bookid = Console.ReadLine();
                     GetBookChapters(bookid);
                 }
+                else if (userChoice == "movies")
+                {
+                    GetMovies();
+                }
             }
         }
         //async method which will get all books
@@ -74,23 +79,32 @@ namespace LOTRApp
 
             sendParsePrintRequest(baseUrl);
         }
+
+        public static async void GetMovies()
+        {
+            string baseUrl = $"https://the-one-api.dev/v2/movie";
+
+            sendParsePrintRequest(baseUrl);
+        }
         public static async void sendParsePrintRequest(string baseUrl)
         {
             try { 
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient()) //instantiate a new request object
                 {
-                    using (HttpResponseMessage res = await client.GetAsync(baseUrl))
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm"); // set bearer token to authorize my request
+
+                    using (HttpResponseMessage res = await client.GetAsync(baseUrl))  // sending request
                     {
-                        res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");
-                        using (HttpContent content = res.Content)
+                        //res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");  
+                        using (HttpContent content = res.Content) // get content out of the response
                         {
-                            string data = await content.ReadAsStringAsync();
+                            string data = await content.ReadAsStringAsync();    //read data in Json
 
                              if (data != null)
                             {
-                                var dataObj = JObject.Parse(data);
+                                var dataObj = JObject.Parse(data);      //parse Json for readability
                                 Console.WriteLine(dataObj["docs"]);
-                                Console.WriteLine("Type 'book', 'books', 'chapter' or press 'q' if you want to quit");
+                                Console.WriteLine("Type 'book', 'books', 'chapter', 'movies' or press 'q' if you want to quit");
                             }
                             else
                             {
