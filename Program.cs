@@ -20,7 +20,7 @@ namespace LOTRApp
             Console.WriteLine($"{Environment.NewLine}Please use the following commands for your enquiries.");
             Console.WriteLine($"{Environment.NewLine} - To list all books, type 'books'");
             Console.WriteLine($"{Environment.NewLine} - To search for a specific book, type book and then the 'id number' of the book");
-            Console.WriteLine($"{Environment.NewLine} - To list all chapters in a book, type the 'chapters' and then the 'id number' of the book");
+            Console.WriteLine($"{Environment.NewLine} - To list all chapters in a book, type the 'chapter' and then the 'id number' of the book");
             Console.WriteLine($"{Environment.NewLine} - To list all movies, type 'movies'");
             Console.WriteLine($"{Environment.NewLine} - Or type 'q' to quit.");
 
