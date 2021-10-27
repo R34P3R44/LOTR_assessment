@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 // The below will enable HTTPClient
 using System.Net.Http;
@@ -11,7 +10,6 @@ namespace LOTRApp
     class Program
     {
         static void Main(string[] args)
-        
         {
             Console.WriteLine("Hi, What is your name?");
             var inputName = Console.ReadLine();
@@ -57,16 +55,12 @@ namespace LOTRApp
                 }
             }
         }
-        //async method which will get all books
-        public static async void GetBooks()
+        public static async void GetBooks()  //async method which will get all books
         {
-            //Define base Url
-            string baseUrl = "https://the-one-api.dev/v2/book/";
-            //try and catch block will will catch any exeptions
+            string baseUrl = "https://the-one-api.dev/v2/book/";  //Define base Url
 
             sendParsePrintRequest(baseUrl);
         }
-
         public static async void GetOneBook(string id)
         {
             string baseUrl = $"https://the-one-api.dev/v2/book/{id}/";
@@ -79,7 +73,6 @@ namespace LOTRApp
 
             sendParsePrintRequest(baseUrl);
         }
-
         public static async void GetMovies()
         {
             string baseUrl = $"https://the-one-api.dev/v2/movie";
@@ -92,8 +85,10 @@ namespace LOTRApp
                 using (HttpClient client = new HttpClient()) //instantiate a new request object
                 {
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm"); // set bearer token to authorize my request
+                    //client.DefaultRequestHeaders.Add("Authorization", $"Bearer jz1Z7ttrFJQZCXJgCz66"); // set bearer token to authorize my request
+                    //client.DefaultRequestHeaders.Add("Authorization", $"Bearer 0WszKxgoMZdNateYxcLW"); // set bearer token to authorize my request
 
-                    using (HttpResponseMessage res = await client.GetAsync(baseUrl))  // sending request
+                    using (HttpResponseMessage res = await client.GetAsync(baseUrl))  // sending request to API
                     {
                         //res.Headers.Add("Authorization", $"Bearer _7O4nscQGh3XuIJNeHDm");  
                         using (HttpContent content = res.Content) // get content out of the response
